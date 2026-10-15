@@ -1,0 +1,151 @@
+.projects {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.projects-title {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: #1f2937;
+}
+
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.project-filter {
+  padding: 9px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.project-filter:hover {
+  color: #2563eb;
+  border-color: #2563eb;
+
+}
+
+.project-filter.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+/* Project Card */
+
+.project-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.project-title {
+  font-size: 22px;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.project-description {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.project-technologies {
+  color: #2563eb;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.project-category {
+  width: fit-content;
+  padding: 4px 9px;
+  background: #eef2ff;
+  color: #2563eb;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.project-live,
+.project-code,
+.project-details {
+  padding: 9px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.project-live {
+  background: #2563eb;
+  color: white;
+}
+
+.project-live:hover {
+  background: #1d4ed8;
+}
+
+.project-code {
+  background: #1f2937;
+  color: white;
+}
+
+.project-code:hover {
+  background: #111827;
+}
+
+.project-details {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.project-details:hover {
+  background: #eff6ff;
+}
+
+@media (max-width: 768px) {
+  .projects {
+    padding: 50px 0;
+  }
+
+  .projects-title {
+    font-size: 30px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

@@ -1,0 +1,112 @@
+.github-projects {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.github-title {
+  font-size: 36px;
+  color: #1f2937;
+  margin-bottom: 25px;
+}
+
+.github-search {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-bottom: 30px;
+  outline: none;
+}
+
+.github-search:focus {
+  border-color: #2563eb;
+}
+
+.github-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.github-project-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.github-project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.github-project-title {
+  font-size: 21px;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.github-project-description {
+  color: #555;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.github-project-language {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.github-project-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.github-code-button,
+.github-details-button {
+  padding: 9px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.github-code-button {
+  background: #2563eb;
+  color: white;
+}
+
+.github-code-button:hover {
+  background: #1d4ed8;
+}
+
+.github-details-button {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.github-details-button:hover {
+  background: #eff6ff;
+}
+
+@media (max-width: 768px) {
+  .github-projects {
+    padding: 50px 0;
+  }
+
+  .github-title {
+    font-size: 30px;
+  }
+
+  .github-grid {
+    grid-template-columns: 1fr;
+  }
+}

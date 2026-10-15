@@ -1,0 +1,65 @@
+.github-detail {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.github-detail-title {
+  font-size: 36px;
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.github-detail-description {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.github-detail-info {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 25px;
+}
+
+.github-detail-info p {
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.github-detail-info p:last-child {
+  margin-bottom: 0;
+}
+
+.github-detail-link {
+  display: inline-block;
+  padding: 10px 18px;
+  text-decoration: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.github-detail-link:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .github-detail {
+    padding: 50px 0;
+  }
+
+  .github-detail-title {
+    font-size: 30px;
+  }
+
+  .github-detail-description {
+    font-size: 16px;
+  }
+}
