@@ -1,79 +1,90 @@
-import { useState,useEffect } from 'react'
-import SkillCard from './SkillCard'
+import { useState, useEffect } from "react";
+import SkillCard from "./SkillCard";
+import { supabase } from "./supabaseClient";
 import "./Skills.css";
 
 function Skills() {
+  const [skills, setSkills] = useState([]);
+  const [selectSkill, setSelectSkill] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    useEffect(() => {
-        document.title = "Sameer | Skills";
-    }, []);
+  useEffect(() => {
+    document.title = "Sameer | Skills";
 
-    const skills = [
-        {
-            id:1,
-            name:"HTML",
-            level:80,
-            category:"FrontEnd"
-            
-        },
-        {
-            id:2,
-            name:"CSS",
-            level:75,
-            category:"FrontEnd"
-            
-        },
-        {
-            id:3,
-            name:"JavaScript",
-            level:75,
-            category:"Language"
-            
-        },
-        {
-            id:4,
-            name:"React",
-            level:70,
-            category:"FrontEnd"
-            
-        },
-        {
-            id:5,
-            name:"Git & GitHub",
-            level:60,
-            category:"Tool"
-        }
-    ]
+    async function loadSkills() {
+      const { data, error } = await supabase
+        .from("skills")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    const [selectSkill,setSelectSkill] = useState("All")
+      if (error) {
+        setError(error.message);
+      } else {
+        setSkills(data);
+      }
 
-    const filterSkills = selectSkill === "All" ? skills : skills.filter(skill => skill.category === selectSkill) 
+      setLoading(false);
+    }
 
-    const skillCategories = ["All","FrontEnd","Tool","Language"];
+    loadSkills();
+  }, []);
 
-    return(
-        <div className='skills'>
+  const filterSkills =
+    selectSkill === "All"
+      ? skills
+      : skills.filter(
+          (skill) => skill.category === selectSkill
+        );
 
-            <div className="skill-filters">
-                {skillCategories.map((category)=>(
-                    <button key={category} onClick={()=> setSelectSkill(category)}
-                    className={`skill-filter ${selectSkill === category ? "active" : ""}`}>
-                        {category}
-                    </button>
-                ))}
-            </div>
+  const skillCategories = [
+    "All",
+    "Frontend",
+    "Programming",
+    "Tools",
+    "Backend",
+  ];
 
-            <div className="skill-grid">
-                {filterSkills.map((skill)=>(
-                    <SkillCard 
-                        key={skill.id}
-                        name={skill.name}
-                        category={skill.category}
-                        level={skill.level}/>
-                ))}
-            </div>
+  if (loading) {
+    return <p>Loading skills...</p>;
+  }
 
-        </div>
-    )
+  if (error) {
+    return <p>Could not load skills: {error}</p>;
+  }
+
+  return (
+    <div className="skills">
+      <div className="skill-filters">
+        {skillCategories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setSelectSkill(category)}
+            className={`skill-filter ${
+              selectSkill === category ? "active" : ""
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className="skill-grid">
+        {filterSkills.length === 0 ? (
+          <p>No skills found in this category.</p>
+        ) : (
+          filterSkills.map((skill) => (
+            <SkillCard
+              key={skill.id}
+              name={skill.name}
+              category={skill.category}
+              level={skill.level}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
 }
-export default Skills
+
+export default Skills;
