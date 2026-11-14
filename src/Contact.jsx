@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import FormField from "./FormField";
 import "./Contact.css";
@@ -23,21 +22,21 @@ function Contact() {
   const fields = [
     {
       name: "name",
-      label: "Name",
+      label: "Your Name",
       type: "text",
       placeholder: "Enter your name",
     },
     {
       name: "email",
-      label: "Email",
+      label: "Your Email",
       type: "email",
-      placeholder: "Enter your email",
+      placeholder: "Enter your email address",
     },
     {
       name: "message",
-      label: "Message",
+      label: "Your Message",
       type: "textarea",
-      placeholder: "Enter your message",
+      placeholder: "Write your message here...",
     },
   ];
 
@@ -55,6 +54,7 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setError("");
     setSuccess("");
 
@@ -64,11 +64,6 @@ function Contact() {
       !formData.message.trim()
     ) {
       setError("Please fill in all fields.");
-      return;
-    }
-
-    if (FORMSPREE_ENDPOINT.includes("YOUR_FORM_ID")) {
-      setError("Please configure your Formspree endpoint first.");
       return;
     }
 
@@ -92,14 +87,17 @@ function Contact() {
         throw new Error("Message could not be sent.");
       }
 
-      setSuccess("Message sent successfully! Thank you for contacting me.");
+      setSuccess(
+        "Message sent successfully! Thank you for contacting me."
+      );
 
       setFormData({
         name: "",
         email: "",
         message: "",
       });
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError(
         "Unable to send your message. Please try again later."
       );
@@ -109,46 +107,78 @@ function Contact() {
   };
 
   return (
-    <div className="contact">
-      <h1 className="contact-title">Contact Me</h1>
-      <p className="contact-description">
-        Have a question or project in mind? Send me a message.
-      </p>
+    <section className="contact">
+      <div className="contact-header">
+        <span className="contact-subtitle">GET IN TOUCH</span>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-        {fields.map((field) => (
-          <FormField
-            key={field.name}
-            label={field.label}
-            name={field.name}
-            type={field.type}
-            value={formData[field.name]}
-            onChange={handleChange}
-            placeholder={field.placeholder}
-          />
-        ))}
+        <h1 className="contact-title">Let's Connect</h1>
 
-        <button
-          className="contact-button"
-          type="submit"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Sending..." : "Send Message"}
-        </button>
+        <p className="contact-description">
+          Have a question, suggestion, or just want to say hello?
+          I'd be happy to hear from you. Send me a message below.
+        </p>
+      </div>
 
-        {error && (
-          <p className="contact-error" role="alert">
-            {error}
+      <div className="contact-layout">
+        <div className="contact-intro">
+          <div className="contact-intro-icon">
+            ✉
+          </div>
+
+          <h2>Start a Conversation</h2>
+
+          <p>
+            I'm always interested in connecting with people,
+            discussing ideas, and learning about new opportunities.
           </p>
-        )}
 
-        {success && (
-          <p className="contact-success" role="status">
-            {success}
+          <div className="contact-note">
+            <span className="contact-note-dot"></span>
+            <span>Send me a message using the contact form.</span>
+          </div>
+        </div>
+
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <h2>Send Me a Message</h2>
+
+          <p className="contact-form-description">
+            Fill in the details and I'll receive your message.
           </p>
-        )}
-      </form>
-    </div>
+
+          {fields.map((field) => (
+            <FormField
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              type={field.type}
+              value={formData[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+            />
+          ))}
+
+          <button
+            className="contact-button"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending Message..." : "Send Message →"}
+          </button>
+
+          {error && (
+            <p className="contact-error" role="alert">
+              {error}
+            </p>
+          )}
+
+          {success && (
+            <p className="contact-success" role="status">
+              {success}
+            </p>
+          )}
+        </form>
+      </div>
+    </section>
   );
 }
 

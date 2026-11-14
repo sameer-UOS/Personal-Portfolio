@@ -2,17 +2,38 @@ import React from "react";
 
 function GitHubProjectCard({ repo, onViewDetails }) {
   return (
-    <div className="github-project-card">
-      <h3 className="github-project-title">{repo.name}</h3>
+    <article className="github-project-card">
 
-      <p className="github-project-description">
-        {repo.description || "No description available"}
-      </p>
+      <div className="github-card-header">
+        <span className="github-repo-label">
+          GitHub Repository
+        </span>
 
-      <p className="github-project-language">
-        <strong>Language:</strong>{" "}
-        {repo.language || "Not specified"}
-      </p>
+        <span className="github-repo-icon">
+          Git
+        </span>
+      </div>
+
+      <div className="github-card-content">
+        <h3 className="github-project-title">
+          {repo.name}
+        </h3>
+
+        <p className="github-project-description">
+          {repo.description || "No description available"}
+        </p>
+
+        <div className="github-project-meta">
+          <span className="github-language">
+            <span className="language-dot"></span>
+            {repo.language || "Not specified"}
+          </span>
+
+          <span>★ {repo.stargazers_count}</span>
+
+          <span>⑂ {repo.forks_count}</span>
+        </div>
+      </div>
 
       <div className="github-project-actions">
         <a
@@ -21,14 +42,18 @@ function GitHubProjectCard({ repo, onViewDetails }) {
           rel="noopener noreferrer"
           className="github-code-button"
         >
-          View Code
+          View Code ↗
         </a>
 
-        <button className="github-details-button" onClick={() => onViewDetails(repo)}>
-          View Details
+        <button
+          className="github-details-button"
+          onClick={() => onViewDetails(repo)}
+        >
+          View Details →
         </button>
       </div>
-    </div>
+
+    </article>
   );
 }
 

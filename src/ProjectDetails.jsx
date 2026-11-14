@@ -13,6 +13,8 @@ function ProjectDetails() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    document.title = "Sameer | Project Details";
+
     async function loadProject() {
       setLoading(true);
       setError("");
@@ -34,6 +36,8 @@ function ProjectDetails() {
 
       if (currentIndex === -1) {
         setProject(null);
+        setPreviousProject(null);
+        setNextProject(null);
       } else {
         setProject(data[currentIndex]);
         setPreviousProject(data[currentIndex - 1] || null);
@@ -47,19 +51,31 @@ function ProjectDetails() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading project details...</p>;
+    return (
+      <div className="project-detail-message">
+        Loading project details...
+      </div>
+    );
   }
 
   if (error) {
-    return <p>Could not load project: {error}</p>;
+    return (
+      <div className="project-detail-message">
+        Could not load project: {error}
+      </div>
+    );
   }
 
   if (!project) {
     return (
-      <div>
-        <h2>Project not found</h2>
-        <p>The project you're looking for doesn't exist.</p>
-        <Link to="/projects">← Back to Projects</Link>
+      <div className="project-detail-page">
+        <div className="project-not-found">
+          <h2>Project Not Found</h2>
+          <p>The project you're looking for doesn't exist.</p>
+          <Link to="/projects" className="back-projects">
+            ← Back to Projects
+          </Link>
+        </div>
       </div>
     );
   }
@@ -72,55 +88,90 @@ function ProjectDetails() {
         .filter(Boolean);
 
   return (
-    <div className="project-detail-page">
-      <Link className="back-projects" to="/projects">
-        ← Back to Projects
-      </Link>
+    <section className="project-detail-section">
+      <div className="project-detail-page">
 
-      <h1 className="project-details-title">
-        {project.title}
-      </h1>
+        <Link className="back-projects" to="/projects">
+          ← Back to Projects
+        </Link>
 
-      <h3 className="project-overview-title">
-        Project Overview
-      </h3>
+        <div className="project-detail-header">
+          <span className="project-detail-label">
+            PROJECT DETAILS
+          </span>
 
-      <p className="project-details-description">
-        {project.description}
-      </p>
+          <h1 className="project-details-title">
+            {project.title}
+          </h1>
 
-      <p className="project-details-info">
-        <strong>Category:</strong> {project.category || "Frontend"}
-      </p>
+          <span className="project-detail-category">
+            {project.category || "Frontend"}
+          </span>
+        </div>
 
-      <p>
-        <strong>Technologies:</strong> {technologies.join(", ")}
-      </p>
+        <div className="project-detail-content">
 
-      <p>
-        <strong>Project ID:</strong> {project.id}
-      </p>
+          <div className="project-overview-card">
+            <h2 className="project-overview-title">
+              Project Overview
+            </h2>
 
-      <div className="technology-list">
-        {technologies.map((technology, index) => (
-          <span key={index}>{technology}</span>
-        ))}
+            <p className="project-details-description">
+              {project.description}
+            </p>
+          </div>
+
+          <div className="project-information-card">
+            <h2>Project Information</h2>
+
+            <div className="project-info-row">
+              <span>Category</span>
+              <strong>{project.category || "Frontend"}</strong>
+            </div>
+
+            <div className="project-info-row">
+              <span>Project ID</span>
+              <strong>#{project.id}</strong>
+            </div>
+
+            <div className="project-info-row">
+              <span>Total Technologies</span>
+              <strong>{technologies.length}</strong>
+            </div>
+          </div>
+
+          <div className="project-technology-card">
+            <h2>Technologies Used</h2>
+
+            <div className="technology-list">
+              {technologies.map((technology, index) => (
+                <span className="technology-tag" key={index}>
+                  {technology}
+                </span>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        <div className="project-navigation">
+          {previousProject ? (
+            <Link to={`/projects/${previousProject.id}`}>
+              ← Previous Project
+            </Link>
+          ) : (
+            <span />
+          )}
+
+          {nextProject && (
+            <Link to={`/projects/${nextProject.id}`}>
+              Next Project →
+            </Link>
+          )}
+        </div>
+
       </div>
-
-      <div className="project-navigation">
-        {previousProject && (
-          <Link to={`/projects/${previousProject.id}`}>
-            ← Previous
-          </Link>
-        )}
-
-        {nextProject && (
-          <Link to={`/projects/${nextProject.id}`}>
-            Next →
-          </Link>
-        )}
-      </div>
-    </div>
+    </section>
   );
 }
 

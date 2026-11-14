@@ -34,8 +34,21 @@ function Projects() {
 
     const categories = ["All","Frontend","React","JavaScript"];
 
-    if (loading) return <p>Loading projects...</p>;
-    if (error) return <p>Could not load projects: {error}</p>;
+    if (loading) {
+          return (
+            <div className="projects-message">
+              Loading projects...
+            </div>
+          );
+        }
+
+    if (error) {
+          return (
+            <div className="projects-message">
+              Could not load projects: {error}
+            </div>
+          );
+    }
     
     return(
         <div className='projects'>
@@ -60,7 +73,7 @@ function Projects() {
                         id={project.id}
                         title={project.title}
                         description={project.description}
-                        technologies={project.technologies.join(", ")}
+                        technologies={Array.isArray(project.technologies) ? project.technologies.join(", ") : (project.technologies || "")}
                         category={project.category || "Frontend"}
                         liveDemo={project.project_url}
                         github={project.github_url}

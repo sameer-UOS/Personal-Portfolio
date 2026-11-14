@@ -10,7 +10,7 @@ function Skills() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    document.title = "Sameer | Skills";
+    document.title = "Sameer Khan | Skills";
 
     async function loadSkills() {
       const { data, error } = await supabase
@@ -30,7 +30,7 @@ function Skills() {
     loadSkills();
   }, []);
 
-  const filterSkills =
+  const filteredSkills =
     selectSkill === "All"
       ? skills
       : skills.filter(
@@ -46,44 +46,79 @@ function Skills() {
   ];
 
   if (loading) {
-    return <p>Loading skills...</p>;
+    return (
+      <section className="skills-section">
+        <div className="container text-center">
+          <p className="skills-message">Loading skills...</p>
+        </div>
+      </section>
+    );
   }
 
   if (error) {
-    return <p>Could not load skills: {error}</p>;
+    return (
+      <section className="skills-section">
+        <div className="container text-center">
+          <p className="skills-error">
+            Could not load skills: {error}
+          </p>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <div className="skills">
-      <div className="skill-filters">
-        {skillCategories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setSelectSkill(category)}
-            className={`skill-filter ${
-              selectSkill === category ? "active" : ""
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+    <section className="skills-section">
+      <div className="container">
 
-      <div className="skill-grid">
-        {filterSkills.length === 0 ? (
-          <p>No skills found in this category.</p>
-        ) : (
-          filterSkills.map((skill) => (
-            <SkillCard
-              key={skill.id}
-              name={skill.name}
-              category={skill.category}
-              level={skill.level}
-            />
-          ))
-        )}
+        <div className="skills-header text-center">
+          <span className="skills-subtitle">
+            MY TECHNICAL EXPERTISE
+          </span>
+
+          <h1>
+            My <span>Skills</span>
+          </h1>
+
+          <p className="skills-description">
+            Technologies and tools I am learning and using
+            to build practical software projects.
+          </p>
+        </div>
+
+        <div className="skill-filters">
+          {skillCategories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectSkill(category)}
+              className={`skill-filter ${
+                selectSkill === category ? "active" : ""
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        <div className="skill-grid">
+          {filteredSkills.length === 0 ? (
+            <p className="skills-message">
+              No skills found in this category.
+            </p>
+          ) : (
+            filteredSkills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                name={skill.name}
+                category={skill.category}
+                level={skill.level}
+              />
+            ))
+          )}
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }
 

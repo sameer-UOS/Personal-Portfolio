@@ -1,98 +1,71 @@
-.navbar {
-  width: 100%;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* ===== Navbar ===== */
+
+.custom-navbar {
+  background-color: var(--color-white);
+  padding: 16px 0;
+  box-shadow: 0 3px 20px rgba(16, 42, 42, 0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.navbar-container {
-  width: 90%;
-  max-width: 1100px;
-  height: 70px;
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.navbar-brand {
+  color: var(--color-primary);
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
-/* Menu button */
-
-.navbar-container > button {
-  display: none;
-  background: transparent;
-  border: none;
-  font-size: 30px;
-  color: #1f2937;
-  cursor: pointer;
-  padding: 5px;
+.navbar-brand span {
+  color: var(--color-accent);
 }
 
-/* Navigation */
-
-.navbar-container ul {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  list-style: none;
+.navbar-brand:hover {
+  color: var(--color-primary);
 }
 
-.navbar-container li {
-  margin: 0;
+.custom-navbar .nav-link {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 9px 13px !important;
+  transition: color 0.3s ease;
 }
 
-.navbar-container li a {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: #555;
-  font-size: 15px;
-  text-decoration: none;
-  transition: 0.2s ease;
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: var(--color-accent);
 }
 
-.navbar-container li a.active {
-  color: #2563eb;
-  font-weight: 600;
+.custom-navbar .nav-link.active {
+  font-weight: 700;
 }
 
-/* Mobile */
+.custom-toggler {
+  border: 1px solid var(--color-border);
+  padding: 7px 10px;
+}
 
-@media (max-width: 768px) {
-  .navbar-container {
-    height: 60px;
-    justify-content: flex-end;
-    position: relative;
+.custom-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.15);
+}
+
+.custom-toggler .navbar-toggler-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== Mobile Navbar ===== */
+
+@media (max-width: 991px) {
+  .custom-navbar .navbar-collapse {
+    padding-top: 15px;
   }
 
-  .navbar-container > button {
-    display: block;
-    background: transparent;
-    border: none;
-    font-size: 28px;
-    color: #1f2937;
-    cursor: pointer;
-    padding: 8px;
+  .custom-navbar .navbar-nav {
+    align-items: stretch !important;
   }
 
-  .navbar-container ul {
-    display: none;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 200px;
-    padding: 20px;
-    background: black;
-    border: 1px solid #e5e7eb;
-    border-radius: 0 0 8px 8px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-  }
-
-  .navbar-container ul.active {
-    display: flex;
+  .custom-navbar .nav-link {
+    padding: 11px 5px !important;
+    border-bottom: 1px solid var(--color-border);
   }
 }

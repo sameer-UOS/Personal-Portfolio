@@ -34,3 +34,148 @@ main,
   max-width: 1100px;
   margin: 0 auto;
 }
+
+/* Ensure admin layout and full-width containers are not constrained by global rules */
+.admin-layout,
+.admin-main,
+.admin-main section,
+.login-page {
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+/* Narrowly scoped full-bleed overrides for public sections with backgrounds */
+section.home-section,
+section.about-section,
+section.skills-section,
+section.education-section,
+section.project-detail-section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+/* ===== Design System ===== */
+
+:root {
+  --color-primary: #102A2A;
+  --color-accent: #16A085;
+  --color-white: #FFFFFF;
+  --color-background: #D1FAE5;
+  --color-text: #34534B;
+  --color-muted: #647C73;
+  --color-border: #C8E5D8;
+
+  --font-primary: "Inter", Arial, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-soft: 0 8px 30px rgba(16, 42, 42, 0.08);
+}
+
+/* ===== Global Reset ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== Typography ===== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-primary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  color: var(--color-muted);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* ===== Form Elements ===== */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===== Reusable Design Classes ===== */
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.section-background {
+  background-color: var(--color-background);
+}
+
+.primary-button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.custom-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(16, 42, 42, 0.12);
+}
+
+/* ===== Responsive Spacing ===== */
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 55px 0;
+  }
+}

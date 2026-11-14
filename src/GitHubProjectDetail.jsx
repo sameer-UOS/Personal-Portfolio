@@ -1,76 +1,152 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./GitHubProjectDetail.css";
 
 function GitHubProjectDetail() {
-    const {id} = useParams();
-    const [project,setProject] = useState(null);
-    const [error,setError] = useState("")
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    useEffect(()=>{
+  const [project, setProject] = useState(null);
+  const [error, setError] = useState("");
 
-        async function getProject() {
-            setError("");
-            setProject(null)
+  useEffect(() => {
+    const controller = new AbortController();
 
-            try{
-                const response = await fetch(`https://api.github.com/repositories/${id}`);
+    async function getProject() {
+      setError("");
+      setProject(null);
 
-                if (!response.ok) {
-                    throw new Error("Repository not found!");
-                }
+      try {
+        const response = await fetch(
+          `https://api.github.com/repositories/${id}`,
+          { signal: controller.signal }
+        );
 
-                const data = await response.json();
-                
-                setProject(data);
-
-            } catch (err){
-                console.log(err);
-                
-                setError("Failed to load repository!")
-                setProject(null)
-            }
+        if (!response.ok) {
+          throw new Error("Repository not found!");
         }
-        getProject();
-    },[id]);
 
-    if (error) return <p>{error}</p>
-    if (project === null ) return <p>Loading repository...</p>
+        const data = await response.json();
+        setProject(data);
 
-    return(
-        <div className="github-detail">
-            <h3 className="github-detail-title">{project.name}</h3>
-            <p className="github-detail-description">{project.description || "No description available"}</p>
-            
-            <p className="github-detail-info">
-                <strong>Language:</strong>{" "}
-                {project.language || "Not specified"}
-            </p>
+      } catch (err) {
+        if (err.name === "AbortError") return;
 
-            <p>
-                <strong>⭐ Stars: </strong>
-                {project.stargazers_count}
-            </p>
+        console.error(err);
+        setError("Failed to load repository. Please try again.");
+      }
+    }
 
-            <p>
-                <strong>🍴 Forks:</strong> 
-                {project.forks_count}
-            </p>
+    getProject();
 
-            <p>
-                <strong>Open Issues:</strong> 
-                {project.open_issues_count}
-            </p>
+    return () => controller.abort();
+  }, [id]);
 
-            <a
-                className="github-detail-link"
-                href={project.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-            >View on GitHub</a>
-            
+  if (error) {
+    return (
+      <div className="github-detail">
+        <div className="github-detail-message">
+          <h2>Unable to load repository</h2>
+          <p>{error}</p>
+
+          <button
+            className="github-back-button"
+            onClick={() => navigate(-1)}
+          >
+            Back to Repositories
+          </button>
         </div>
-    )
+      </div>
+    );
+  }
+
+  if (project === null) {
+    return (
+      <div className="github-detail">
+        <p className="github-detail-message">
+          Loading repository...
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <section className="github-detail">
+
+      <button
+        className="github-back-button"
+        onClick={() => navigate(-1)}
+      >
+        ← Back to Repositories
+      </button>
+
+      <div className="github-detail-header">
+        <span className="github-detail-label">
+          GitHub Repository
+        </span>
+
+        <h1 className="github-detail-title">
+          {project.name}
+        </h1>
+
+        <p className="github-detail-fullname">
+          {project.full_name}
+        </p>
+
+        <p className="github-detail-description">
+          {project.description || "No description available"}
+        </p>
+      </div>
+
+      <div className="github-detail-info">
+        <h2>Repository Information</h2>
+
+        <div className="github-detail-stats">
+
+          <div className="github-stat">
+            <span className="github-stat-label">Language</span>
+            <strong>{project.language || "Not specified"}</strong>
+          </div>
+
+          <div className="github-stat">
+            <span className="github-stat-label">Stars</span>
+            <strong>★ {project.stargazers_count}</strong>
+          </div>
+
+          <div className="github-stat">
+            <span className="github-stat-label">Forks</span>
+            <strong>⑂ {project.forks_count}</strong>
+          </div>
+
+          <div className="github-stat">
+            <span className="github-stat-label">Open Issues</span>
+            <strong>{project.open_issues_count}</strong>
+          </div>
+
+          <div className="github-stat">
+            <span className="github-stat-label">Default Branch</span>
+            <strong>{project.default_branch}</strong>
+          </div>
+
+          <div className="github-stat">
+            <span className="github-stat-label">Visibility</span>
+            <strong>{project.visibility}</strong>
+          </div>
+
+        </div>
+      </div>
+
+      <a
+        className="github-detail-link"
+        href={project.html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Repository on GitHub ↗
+      </a>
+
+    </section>
+  );
 }
 
-export default GitHubProjectDetail
+export default GitHubProjectDetail;

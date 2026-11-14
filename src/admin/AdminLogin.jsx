@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
 import "./AdminLogin.css";
@@ -11,6 +11,16 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkExistingSession() {
+      const { data } = await supabase.auth.getSession();
+      if (data?.session) {
+        navigate("/admin/dashboard", { replace: true });
+      }
+    }
+    checkExistingSession();
+  }, [navigate]);
 
   async function handleLogin(e) {
     e.preventDefault();

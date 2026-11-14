@@ -1,120 +1,245 @@
-.home {
-  min-height: calc(100vh - 70px);
-  width: 90%;
-  max-width: 1000px;
+/* ===== Home Section ===== */
+
+.home-section {
+  width: 100%;
+  min-height: calc(100vh - 75px);
+  display: flex;
+  align-items: center;
+  padding: 90px 0;
+  background: var(--color-background);
+  overflow: hidden;
+}
+
+/* ===== Profile Image ===== */
+
+.home-image-wrapper {
+  position: relative;
+  width: 280px;
+  height: 320px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 60px;
-  padding: 80px 0;
 }
 
-.home-image {
-  flex-shrink: 0;
+.home-image-frame {
+  position: relative;
+  width: 250px;
+  height: 290px;
+  z-index: 2;
+  border-radius: 130px 130px 24px 24px;
+  overflow: hidden;
+  border: 5px solid var(--color-white);
+  box-shadow: var(--shadow-soft);
 }
 
-.home-image img {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
+.home-profile-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 4px solid #2563eb;
+  object-position: center;
 }
+
+.home-image-decoration {
+  position: absolute;
+  width: 250px;
+  height: 290px;
+  border: 3px solid var(--color-accent);
+  border-radius: 130px 130px 24px 24px;
+  top: 5px;
+  left: 25px;
+  z-index: 1;
+}
+
+/* ===== Home Content ===== */
 
 .home-content {
   max-width: 650px;
 }
 
+.home-label {
+  display: inline-block;
+  color: var(--color-accent);
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 22px;
+}
+
 .home-title {
-  font-size: 48px;
-  margin-bottom: 8px;
-  color: #1f2937;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.home-title span {
+  color: var(--color-accent);
 }
 
 .home-role {
-  font-size: 22px;
-  color: #2563eb;
+  font-size: 23px;
   font-weight: 600;
-  margin-bottom: 18px;
-}
-
-.home-description {
-  max-width: 650px;
-  font-size: 18px;
-  color: #555;
+  color: var(--color-primary);
   margin-bottom: 20px;
 }
 
+.home-description {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--color-muted);
+  margin-bottom: 12px;
+}
+
 .home-detail {
-  max-width: 650px;
-  color: #555;
   font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 10px;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin-bottom: 12px;
 }
 
-.home-actions {
-  display: flex;
-  gap: 14px;
-  margin-top: 25px;
-}
-
-.home-button {
-  padding: 11px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  background: #2563eb;
-  color: white;
-  transition: 0.2s ease;
-}
-
-.home-button:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-}
+/* ===== Read More ===== */
 
 .home-more-button {
-  background: transparent;
-  border: none;
-  color: #2563eb;
-  padding: 0;
-  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--color-white);
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 8px;
 }
 
 .home-more-button:hover {
-  text-decoration: underline;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
+/* ===== Action Buttons ===== */
 
-  .home {
-    flex-direction: column;
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+/* Primary CTA ("View Projects") */
+.home-actions .home-button:first-child {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 4px 14px rgba(22, 160, 133, 0.25);
+}
+
+.home-actions .home-button:first-child:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16, 42, 42, 0.2);
+}
+
+/* Secondary CTA ("Contact Me") */
+.home-actions .home-button:nth-child(2) {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-border);
+}
+
+.home-actions .home-button:nth-child(2):hover {
+  background: var(--color-white);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 42, 42, 0.08);
+}
+
+.home-button span {
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+}
+
+.home-button:hover span {
+  transform: translateX(3px);
+}
+
+
+/* ===== Learning Status ===== */
+
+.home-footer-text {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 35px;
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.home-status-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 767px) {
+  .home-section {
+    min-height: auto;
+    padding: 65px 0;
     text-align: center;
-    gap: 30px;
-    padding: 60px 0;
   }
 
-  .home-image img {
-    width: 170px;
-    height: 170px;
+  .home-image-wrapper {
+    width: 230px;
+    height: 260px;
   }
 
-  .home-actions {
-    flex-direction: column;
-    width: 100%;
+  .home-image-frame,
+  .home-image-decoration {
+    width: 205px;
+    height: 245px;
   }
 
-  .home-button {
-    text-align: center;
+  .home-image-decoration {
+    left: 20px;
   }
 
   .home-title {
-    font-size: 36px;
+    font-size: 39px;
   }
 
   .home-role {
-    font-size: 19px;
+    font-size: 20px;
   }
 
   .home-description {
@@ -122,12 +247,25 @@
   }
 
   .home-actions {
+    justify-content: center;
+  }
+
+  .home-footer-text {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-title {
+    font-size: 33px;
+  }
+
+  .home-actions {
     flex-direction: column;
-    width: 100%;
   }
 
   .home-button {
-    text-align: center;
-    text-decoration: none;
+    width: 100%;
   }
 }

@@ -97,11 +97,11 @@ export default function AdminDashboard() {
         <div className="admin-sidebar-bottom">
           <div className="admin-user">
             <div className="admin-avatar">
-              {session.user.email?.charAt(0).toUpperCase() || "A"}
+              {session?.user?.email?.charAt(0).toUpperCase() || "A"}
             </div>
             <div className="admin-user-info">
               <strong>Administrator</strong>
-              <small>{session.user.email}</small>
+              <small>{session?.user?.email || "admin"}</small>
             </div>
           </div>
 
@@ -163,7 +163,6 @@ export default function AdminDashboard() {
               <h2>Project Management</h2>
               <p>Manage the projects displayed on your website.</p>
             </div>
-            <span className="admin-section-number">01</span>
           </div>
 
           <div className="admin-manager-panel">
